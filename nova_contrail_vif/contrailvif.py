@@ -6,7 +6,7 @@ gettext.install('contrail_vif')
 from oslo.config import cfg
 
 from nova import exception
-from nova.network import linux_net
+from nova.network import freebsd_net
 from nova.network import model as network_model
 from nova.openstack.common import log as logging
 from nova.openstack.common import loopingcall
@@ -140,7 +140,7 @@ class VRouterVIFDriver(LibvirtBaseVIFDriver):
     def plug(self, instance, vif):
         iface_id = vif['id']
         dev = self.get_vif_devname(vif)
-        linux_net.create_tap_dev(dev)
+        freebsd_net.create_tap_dev(dev)
 
         # port_id(tuuid), instance_id(tuuid), tap_name(string), 
         # ip_address(string), vn_id(tuuid)
@@ -181,7 +181,7 @@ class VRouterVIFDriver(LibvirtBaseVIFDriver):
 	                   self._convert_to_bl(instance['project_id']))
 
         self._agent_inform(port, iface_id, False)
-        linux_net.delete_net_dev(dev)
+        freebsd_net.delete_net_dev(dev)
 
     #end unplug
 #end class VRouterVIFDriver
