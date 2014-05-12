@@ -140,7 +140,7 @@ class VRouterVIFDriver(LibvirtBaseVIFDriver):
     def plug(self, instance, vif):
         iface_id = vif['id']
         dev = self.get_vif_devname(vif)
-        freebsd_net.create_tap_dev(dev)
+        freebsd_net.create_tap_dev(dev, promisc=True)
 
         # port_id(tuuid), instance_id(tuuid), tap_name(string), 
         # ip_address(string), vn_id(tuuid)
